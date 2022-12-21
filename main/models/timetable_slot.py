@@ -1,6 +1,5 @@
 import datetime
-
-from django.contrib.auth.models import User
+from swimmigPool import settings
 from django.db import models
 
 from main.models.track import Track
@@ -14,7 +13,7 @@ class TimetableSlot(models.Model):
     start = models.DateTimeField()
     end = models.DateTimeField()
     # 1 user - many slots
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
     # 1 track - many slots
     track = models.ForeignKey(Track, on_delete=models.CASCADE, null=True)
 
