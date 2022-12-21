@@ -1,3 +1,6 @@
 from django.contrib import admin
+from main.models.timetable_slot import TimetableSlot
+from main.models.track import Track
 
-# Register your models here.
+admin.site.register(TimetableSlot)
+admin.site.register(Track)
