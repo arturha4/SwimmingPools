@@ -5,6 +5,9 @@ from rest_framework import status
 
 
 class RegisterView(APIView):
+    def get(self, request):
+        return Response(status=status.HTTP_200_OK)
+
     def post(self, request):
         """
         Возвращает email юзера и 201 статус, если регистрация прошла успешно
