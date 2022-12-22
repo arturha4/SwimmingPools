@@ -34,7 +34,7 @@ def _fits_in_session(start, end):
 class TimetableSlotSerializer(serializers.ModelSerializer):
     class Meta:
         model = TimetableSlot
-        fields = ('start', 'end', 'user',)
+        fields = ('start', 'end', 'user', 'track')
 
     def validate(self, attrs):
         # начало должно быть раньше конца
