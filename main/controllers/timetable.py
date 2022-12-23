@@ -1,5 +1,5 @@
 from rest_framework import status
-from rest_framework.authentication import BasicAuthentication
+from rest_framework.authentication import SessionAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -9,7 +9,7 @@ from main.serializers.timetable_slot import TimetableSlotSerializer
 
 
 class Timetable(APIView):
-    authentication_classes = [BasicAuthentication]
+    authentication_classes = [SessionAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
@@ -27,7 +27,7 @@ class Timetable(APIView):
             data = serializer.validated_data
             serializer.save()
             return Response(
-                'ok)',
+                serializer.data,
                 status.HTTP_200_OK
             )
         return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)

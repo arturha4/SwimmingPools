@@ -15,7 +15,7 @@ class TimetableSlot(models.Model):
     # 1 user - many slots
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
     # 1 track - many slots
-    track = models.ForeignKey(Track, on_delete=models.CASCADE, null=True)
+    track = models.ForeignKey(Track, on_delete=models.CASCADE, null=True, related_name='tracks')
 
     def intersects_with_slot(self, slot):
         """если слоты пересекаются то создать новый нельзя"""
