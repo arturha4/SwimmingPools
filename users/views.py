@@ -1,10 +1,11 @@
-from users.serializers import RegisterSerializer
+from users.serializers import SignUpSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
 
 class RegisterView(APIView):
+    permission_classes = []
     def get(self, request):
         return Response(status=status.HTTP_200_OK)
 
@@ -14,7 +15,7 @@ class RegisterView(APIView):
         :param request:
         :return:
         """
-        serializer = RegisterSerializer(data=request.data)
+        serializer = SignUpSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(data={'email': serializer.data['email']}, status=status.HTTP_201_CREATED)

@@ -9,7 +9,6 @@ from main.serializers.timetable_slot import TimetableSlotSerializer
 
 
 class Timetable(APIView):
-    authentication_classes = [SessionAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
