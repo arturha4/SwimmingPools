@@ -46,3 +46,18 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.firstname + ' ' + self.lastname
+
+    def get_full_name(self):
+        return f'{self.firstname} {self.lastname}'
+
+    def get_short_name(self):
+        return self.firstname
+
+    def __str__(self):
+        return self.email
+
+    def has_perm(self, perm, obj=None):
+        return True
+
+    def has_module_perms(self, app_label):
+        return True
