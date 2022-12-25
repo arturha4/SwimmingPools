@@ -1,7 +1,7 @@
-from django.urls import re_path, include
+from django.urls import re_path, include, path
 
 from main.controllers.timetable import Timetable
-from main.controllers.timetable_slot import TimetableSlot
+from main.controllers.timetable_slot import TimetableSlot, TracksSchedule
 from main.controllers.track_seed import TrackSeed
 
 urlpatterns = [
@@ -11,5 +11,6 @@ urlpatterns = [
             re_path(r'^$', TimetableSlot.as_view())
         ]))
     ])),
-    re_path(r'^track-seed/', TrackSeed.as_view())
+    re_path(r'^track-seed/', TrackSeed.as_view()),
+    path('tracks-schedule/', TracksSchedule.as_view())
 ]

@@ -20,13 +20,12 @@ class Timetable(APIView):
         return Response(serializer.data, status.HTTP_200_OK)
 
     def post(self, request):
-        serializer = TimetableSlotSerializer(data=request.data, context={'user': request.user})
+        request.data['user'] = request.user.id
+        serializer = TimetableSlotSerializer(data=request.data)
         if serializer.is_valid():
-            # потом проверить что чел уже записывался на это время, что не превышено колво людей на дорожку итд
-            data = serializer.validated_data
             serializer.save()
             return Response(
                 serializer.data,
-                status.HTTP_200_OK
+                status.HTTP_201_CREATED
             )
         return Response(serializer.errors, status.HTTP_400_BAD_REQUEST)
