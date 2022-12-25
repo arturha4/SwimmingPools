@@ -9,8 +9,7 @@ def _str2datetime(s) -> datetime.datetime:
     return datetime.datetime.fromisoformat(s)
 
 
-class TimetableSlot(models.Model):
-    TIME_CHOICES = (
+TIME_CHOICES = (
         ('6:30', '7:15'),
         ('7:15', '8:00'),
         ('8:00', '8:45'),
@@ -31,6 +30,9 @@ class TimetableSlot(models.Model):
         ('20:00', '20:45'),
         ('20:45', '21:30'),
     )
+
+
+class TimetableSlot(models.Model):
     date = models.DateField()
     time_slot = models.CharField(max_length=5, choices=TIME_CHOICES)
     # 1 user - many slots
