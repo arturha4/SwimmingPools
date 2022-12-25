@@ -1,4 +1,4 @@
-tfrom django.urls import re_path, include, path
+from django.urls import re_path, include, path
 
 from main.controllers.timetable import Timetable
 from main.controllers.timetable_slot import TimetableSlot, TracksSchedule
