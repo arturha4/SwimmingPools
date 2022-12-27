@@ -1,4 +1,7 @@
 import datetime
+
+from django.db.models import Count, Sum
+
 from swimmigPool import settings
 from django.db import models
 
@@ -40,3 +43,14 @@ class TimetableSlot(models.Model):
     # 1 track - many slots
     track = models.ForeignKey(Track, on_delete=models.CASCADE, null=True, related_name='slots')
     visitors = models.IntegerField()
+
+    def __str__(self):
+        return f'Дорожка: {self.track.number}, Дата: {self.date} Время сеанса: {self.time_slot}, Посетителей {self.visitors}'
+
+
+def available_tracks_by_date(date, time_slot):
+    """
+    Возвращает дорожки с кол-ом занятых мест в формате:
+    [{'track': 2, 'visitors__sum': 6}, {'track': 5, 'visitors__sum': 3}, {'track': 6, 'visitors__sum': 5}]>
+    """
+    return TimetableSlot.objects.select_related('track').filter(date=date, time_slot=time_slot).values('track').annotate(Sum('visitors'))

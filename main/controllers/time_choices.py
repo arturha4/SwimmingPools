@@ -9,4 +9,4 @@ class TimeChoices(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        return Response({'timeChoices': TIME_CHOICES}, )
+        return Response({'timeChoices': TIME_CHOICES})
