@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 from django.db.models import Sum
 
@@ -16,9 +18,6 @@ class Track(models.Model):
     )
     number = models.IntegerField(choices=TRACK_CHOISE)
 
-    def get_people(self):
-        return self.objects.select_related()
-
     def get_count_of_visitors(self, date, time_slot):
         visitors = self.slots.filter(date=date, time_slot=time_slot).aggregate(Sum('visitors'))[
             'visitors__sum']
@@ -26,7 +25,8 @@ class Track(models.Model):
             return 0
         return visitors
 
-    def available(self, date, time_slot, visitors):
+    def available(self, time_slot, visitors, date=datetime.date.today()):
+        visitors = int(visitors)
         counted_people = self.get_count_of_visitors(date, time_slot)
         if counted_people + visitors > track_capacity:
             return False

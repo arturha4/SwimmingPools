@@ -36,6 +36,6 @@ class TracksSchedule(APIView):
         Возвращает слоты за определенный промежуток времени, берущийся из параметров запроса
         """
         start, end = request.GET.get('start'), request.GET.get('end')
-        serializer = TimetableSlotSerializer(TimetableSlotModel.objects.filter
-                                             (date__range=[start, end]).order_by('date'), many=True)
+        rows = TimetableSlotModel.objects.filter(date__range=[start, end]).order_by('date')
+        serializer = TimetableSlotSerializer(rows, many=True)
         return Response(data=serializer.data, status=status.HTTP_200_OK)
