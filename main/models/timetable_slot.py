@@ -1,8 +1,11 @@
 import datetime
+
+from django.db.models import Sum
+
 from swimmigPool import settings
 from django.db import models
 
-from main.models.track import Track
+from main.models.track import Track, track_capacity
 
 
 def _str2datetime(s) -> datetime.datetime:
@@ -32,6 +35,7 @@ TIME_CHOICES = (
     )
 
 
+
 class TimetableSlot(models.Model):
     date = models.DateField()
     time_slot = models.CharField(max_length=5, choices=TIME_CHOICES)
@@ -40,3 +44,9 @@ class TimetableSlot(models.Model):
     # 1 track - many slots
     track = models.ForeignKey(Track, on_delete=models.CASCADE, null=True, related_name='slots')
     visitors = models.IntegerField()
+
+    def __str__(self):
+        return f'Дорожка: {self.track.number}, Дата: {self.date} Время сеанса: {self.time_slot}, Посетителей {self.visitors}'
+
+
+
