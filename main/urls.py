@@ -4,6 +4,7 @@ from main.controllers.time_choices import TimeChoices
 from main.controllers.timetable import Timetable
 from main.controllers.timetable_slot import TimetableSlot, TracksSchedule
 from main.controllers.track_seed import TrackSeed
+from main.controllers.tracks import Tracks
 
 urlpatterns = [
     re_path(r'^timetable/', include([
@@ -14,5 +15,6 @@ urlpatterns = [
         re_path(r'^time-choices/', TimeChoices.as_view())
     ])),
     re_path(r'^track-seed/', TrackSeed.as_view()),
+    path('tracks/', Tracks.as_view()),
     path('tracks-schedule/', TracksSchedule.as_view())
 ]

@@ -37,5 +37,4 @@ class TracksSchedule(APIView):
         Возвращает слоты за определенный промежуток времени, берущийся из параметров запроса
         """
         start, end = request.GET.get('start'), request.GET.get('end')
-
         return Response(data={'available_tracks': get_count_of_available_tracks_by_datetime(start, end)}, status=status.HTTP_200_OK)
