@@ -18,7 +18,6 @@ def get_booked_tracks_by_datetime(start_date: str, end_date: str, visitors_limit
 def get_count_of_available_tracks_by_datetime(start_date: str, end_date: str):
     schedule = get_empty_schedule(dt.strptime(start_date, '%Y-%m-%d').date(), dt.strptime(end_date, '%Y-%m-%d').date())
     busy_slots = get_booked_tracks_by_datetime(start_date, end_date)
-    print(busy_slots)
     for item in busy_slots:
         schedule[item['date'].strftime('%Y-%m-%d')][item['time_slot']] -= 1
     return schedule
