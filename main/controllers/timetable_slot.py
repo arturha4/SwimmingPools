@@ -6,6 +6,7 @@ from rest_framework.views import APIView
 
 from main.serializers.timetable_slot import TimetableSlotSerializer
 from main.models.timetable_slot import TimetableSlot as TimetableSlotModel
+from main.services import get_count_of_available_tracks_by_datetime
 
 
 class TimetableSlot(APIView):
@@ -36,6 +37,5 @@ class TracksSchedule(APIView):
         Возвращает слоты за определенный промежуток времени, берущийся из параметров запроса
         """
         start, end = request.GET.get('start'), request.GET.get('end')
-        serializer = TimetableSlotSerializer(TimetableSlotModel.objects.filter
-                                             (date__range=[start, end]).order_by('date'), many=True)
-        return Response(data=serializer.data, status=status.HTTP_200_OK)
+
+        return Response(data={'available_tracks': get_count_of_available_tracks_by_datetime(start, end)}, status=status.HTTP_200_OK)
