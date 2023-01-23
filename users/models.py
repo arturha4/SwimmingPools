@@ -54,9 +54,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def get_short_name(self):
         return self.firstname
 
-    def __str__(self):
-        return self.email
-
     def has_perm(self, perm, obj=None):
         return True
 
@@ -66,5 +63,11 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def have_slot(self):
         last_slot = self.slots.last()
         if last_slot:
-            return last_slot.date > datetime.now().date()
+            slot_time = datetime.strptime(last_slot.time_slot, '%H:%M').time()
+            return datetime.combine(last_slot.date, slot_time) > datetime.now()
         return False
+
+    def get_upcoming_slot(self):
+        if self.have_slot():
+            return self.slots.last()
+        return None

@@ -23,3 +23,10 @@ class SignUpSerializer(serializers.ModelSerializer):
         user.set_password(password)
         user.save()
         return user
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ('email', 'firstname', 'lastname', 'date_joined')
+        read_only_fields = ('email', 'firstname', 'lastname', 'date_joined')
