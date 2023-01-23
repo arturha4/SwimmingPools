@@ -30,6 +30,20 @@ class TimetableSlot(APIView):
         return Response(data="Удалено", status=status.HTTP_204_NO_CONTENT)
 
 
+class UpcomingTimetableSlot(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        """
+        Получить предстоящие слоты юзера
+        """
+        upcoming_slot = request.user.get_upcoming_slot()
+        if upcoming_slot:
+            serializer = TimetableSlotSerializer(upcoming_slot)
+            return Response(data=serializer.data, status=status.HTTP_200_OK)
+        return Response(data={'message': 'Upcoming slots not found'}, status=status.HTTP_204_NO_CONTENT)
+
+
 class TracksSchedule(APIView):
     permission_classes = []
     def get(self, request):

@@ -34,19 +34,21 @@ TIME_CHOICES = (
         ('20:45', '21:30'),
     )
 
+SLOT_STATUS = (
+    (0, 'awaiting payment'),
+    (1, 'paid'),
+    (2, 'canceled')
+)
 
 
 class TimetableSlot(models.Model):
     date = models.DateField()
     time_slot = models.CharField(max_length=5, choices=TIME_CHOICES)
-    # 1 user - many slots
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, related_name='slots')
-    # 1 track - many slots
     track = models.ForeignKey(Track, on_delete=models.CASCADE, null=True, related_name='slots')
+    status = models.CharField(max_length=20, choices=SLOT_STATUS, default=SLOT_STATUS[0][1])
     visitors = models.IntegerField()
 
     def __str__(self):
-        return f'Дорожка: {self.track.number}, Дата: {self.date} Время сеанса: {self.time_slot}, Посетителей {self.visitors}'
-
-
-
+        return f'Дорожка: {self.track.number}, Дата: {self.date} Время сеанса: {self.time_slot},' \
+               f' Посетителей: {self.visitors}, Статус: {self.status}'
