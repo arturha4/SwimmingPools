@@ -33,9 +33,9 @@ TIME_CHOICES = (
     )
 
 SLOT_STATUS = (
-    (0, 'awaiting payment'),
-    (1, 'paid'),
-    (2, 'canceled')
+    ('awaiting payment', 'awaiting payment'),
+    ('paid', 'paid'),
+    ('canceled', 'canceled')
 )
 
 TICKET_TYPE = (
