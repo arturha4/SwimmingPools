@@ -3,12 +3,14 @@ from rest_framework import serializers
 
 from main.models.timetable_slot import TimetableSlot
 
+
 def valid_datetime_slot(date, slot_time):
     time = datetime.strptime(slot_time, '%H:%M').time()
     date = datetime.combine(date, time)
     if date < datetime.now():
         raise serializers.ValidationError('Некорректная дата и время для записи')
     return True
+
 
 class TimetableSlotSerializer(serializers.ModelSerializer):
     class Meta:

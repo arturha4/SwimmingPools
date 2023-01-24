@@ -1,5 +1,6 @@
 from django.urls import re_path, include, path
 
+from main.controllers.sessions import SessionView
 from main.controllers.time_choices import TimeChoices
 from main.controllers.timetable import Timetable
 from main.controllers.timetable_slot import TimetableSlot, TracksSchedule, UpcomingTimetableSlot
@@ -14,8 +15,9 @@ urlpatterns = [
         ])),
         re_path(r'^time-choices/', TimeChoices.as_view())
     ])),
-    re_path(r'^track-seed/', TrackSeed.as_view()),
+    re_path(r'^track-seed/',    TrackSeed.as_view()),
     path('tracks/', Tracks.as_view()),
     path('tracks-schedule/', TracksSchedule.as_view()),
     path('upcoming-slots/', UpcomingTimetableSlot.as_view()),
+    path('session/', SessionView.as_view())
 ]

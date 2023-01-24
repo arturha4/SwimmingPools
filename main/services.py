@@ -1,7 +1,7 @@
 from datetime import datetime as dt, timedelta
 from django.db.models import Sum
 
-from main.models.timetable_slot import TimetableSlot, TIME_CHOICES
+from main.models.timetable_slot import TimetableSlot, TIME_CHOICES, SwimmingSession, Visitor
 
 
 def get_empty_schedule(start, end):
