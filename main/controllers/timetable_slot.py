@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 
 from main.serializers.timetable_slot import TimetableSlotSerializer
 from main.models.timetable_slot import TimetableSlot as TimetableSlotModel
-from main.services import get_count_of_available_tracks_by_datetime
+from main.services import get_count_of_available_tracks_by_datetime, get_max_capacity_of_tracks
 
 
 class TimetableSlot(APIView):
@@ -73,3 +73,10 @@ class TracksSchedule(APIView):
         start, end = request.GET.get('start'), request.GET.get('end')
         return Response(data={'available_tracks': get_count_of_available_tracks_by_datetime(start, end)},
                         status=status.HTTP_200_OK)
+
+
+class TrackAvailable(APIView):
+    def get(self, request):
+        data = request.data
+        res = get_max_capacity_of_tracks(data['date'], data['time_slot'])
+        return Response(data={'max_users': res}, status=status.HTTP_200_OK)
