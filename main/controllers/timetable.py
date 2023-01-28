@@ -14,7 +14,9 @@ class Timetable(APIView):
         """
         получить расписание текущего юзера
         """
-        my_slots = TimetableSlot.objects.filter(user_id=request.user.id)
+        my_slots = TimetableSlot.objects\
+            .filter(user_id=request.user.id)\
+            .order_by('-id')  # quick+dirty order by time
         serializer = TimetableSlotSerializer(my_slots, many=True)
         return Response(serializer.data, status.HTTP_200_OK)
 
